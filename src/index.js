@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const { talkerRouter, talkerRouterById } = require('./routes/talkerRouter');
 const { loginRouter } = require('./routes/loginRouter');
 
+const { validateEmail, validatePassword } = require('./middlewares');
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -23,4 +25,4 @@ app.get('/talker', talkerRouter);
 
 app.get('/talker/:id', talkerRouterById);
 
-app.post('/login', loginRouter);
+app.post('/login', validateEmail, validatePassword, loginRouter);
