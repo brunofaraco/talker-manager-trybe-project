@@ -1,5 +1,18 @@
 const express = require('express');
+
+const newID = require('../helpers/newID');
 const readFile = require('../helpers/readFile');
+const writeFile = require('../helpers/writeFile');
+
+const { 
+  validateToken,
+  validateName,
+  validateAge,
+  validateTalk,
+  validateWatchedAt,
+  validateRateIfExist,
+  validateRateIsInteger,
+} = require('../middlewares');
 
 const router = express.Router();
 
@@ -18,6 +31,22 @@ router.get('/:id', async (req, res) => {
   res.status(200).json(filteredData);
 });
 
-// router.post('/', () => {});
+router.post(
+  '/',
+  validateToken,
+  validateName,
+  validateAge,
+  validateTalk,
+  validateWatchedAt,
+  validateRateIfExist,
+  validateRateIsInteger,
+  async (req, res) => {
+    const data = req.body;
+    const newTalker = { id: await newID(), ...data };
+    await writeFile(newTalker);
+
+    res.status(201).json(newTalker);
+  },
+);
 
 module.exports = router;
