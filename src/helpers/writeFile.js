@@ -10,7 +10,7 @@ const writeFile = async (newTalker) => {
   const talkers = await readFile();
 
   const updatedTalkers = JSON.stringify([...talkers, newTalker]);
-  
+
   await fs.writeFile(filePath, updatedTalkers);
 };
 
