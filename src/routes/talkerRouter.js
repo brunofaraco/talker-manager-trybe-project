@@ -49,4 +49,18 @@ router.post(
   },
 );
 
+router.post(
+  '/:id',
+  validateToken,
+  validateName,
+  validateAge,
+  validateTalk,
+  validateWatchedAt,
+  validateRateIfExist,
+  validateRateIsInteger,
+  async (_req, _res) => {
+
+  },
+  );
+
 module.exports = router;
