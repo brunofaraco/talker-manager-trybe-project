@@ -8,19 +8,10 @@ const filePath = path.resolve(__dirname, '..', 'talker.json');
 
 const writeFile = async (newTalker) => {
   const talkers = await readFile();
-  const doTalkerExists = talkers.find((talker) => talker.id === newTalker.id);
 
-  if (!doTalkerExists) {
-    const updatedTalkers = JSON.stringify([...talkers, newTalker]);
-    
-    await fs.writeFile(filePath, updatedTalkers);
-  } else {
-    const idToBeModified = talkers.findIndex((talker) => talker.id === newTalker.id);
-    talkers[idToBeModified] = newTalker;
-    const updateSpecificTalker = JSON.stringify(talkers);
-
-    await fs.writeFile(filePath, updateSpecificTalker);
-  }
+  const updatedTalkers = JSON.stringify([...talkers, newTalker]);
+  
+  await fs.writeFile(filePath, updatedTalkers);
 };
 
 module.exports = writeFile;
