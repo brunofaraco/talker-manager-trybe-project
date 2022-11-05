@@ -17,6 +17,18 @@ const {
 
 const router = express.Router();
 
+router.get(
+  '/search',
+  validateToken,
+  async (req, res) => {
+    const { q } = req.query;
+    const talkers = await readFile();
+    const filteredTalkers = talkers.filter((talker) => talker.name.includes(q));
+
+    res.status(200).json(filteredTalkers);
+  },
+  );
+
 router.get('/', async (_req, res) => {
   const data = await readFile();
   res.status(200).json(data);
