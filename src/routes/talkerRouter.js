@@ -49,7 +49,7 @@ router.post(
   },
 );
 
-router.post(
+router.put(
   '/:id',
   validateToken,
   validateName,
@@ -58,8 +58,13 @@ router.post(
   validateWatchedAt,
   validateRateIfExist,
   validateRateIsInteger,
-  async (_req, _res) => {
+  async (req, res) => {
+    const { id } = req.params;
+    const updatedTalkerInfo = req.body;
+    const updatedTalker = { id: Number(id), ...updatedTalkerInfo };
+    await writeFile(updatedTalker);
 
+    res.status(200).json(updatedTalker);
   },
   );
 
