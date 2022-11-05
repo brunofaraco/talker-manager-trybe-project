@@ -1,9 +1,6 @@
 const express = require('express');
 
-const newID = require('../helpers/newID');
-const readFile = require('../helpers/readFile');
-const writeFile = require('../helpers/writeFile');
-const deleteTalker = require('../helpers/deleteTalker');
+const { newID, readFile, writeFile, deleteTalker } = require('../helpers');
 
 const { 
   validateToken,
